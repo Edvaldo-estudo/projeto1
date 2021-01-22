@@ -1,16 +1,14 @@
 package jr.io.projeto1.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import jr.io.projeto1.entity.User;
 
-public interface UserRepository extends JpaRepository<User, Long>{
-
-	@Query("select u from User u where u.name like %:name%")
-	User findByNameQualquerCoisa(String name);
+public interface UserRepository extends MongoRepository<User, String>{
 	
-	User findByEmail(String email);
+	@Query("{'email' : ?0}")
+	User findByEmailQualquerCoisa(String email);
 	
-	User findByNameIgnoreCase(String name);
+	User findByNameIgnoreCaseLike(String name);
 }
